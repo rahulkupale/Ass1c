@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Local File Content</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #fileContent {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: opacity 0.5s;
+        }
+
+        #fetchDataBtn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        #fetchDataBtn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h2>Initial Text</h2>
+    <div id="fileContent"></div>
+    
+    <!-- Add Fetch Data Button -->
+    <button id="fetchDataBtn">Fetch Data</button>
+
+    <script>
+        // Define the file path
+        const filePath = '1c.txt';
+
+        // Function to fetch file content
+        function fetchFileContent() {
+            // Make an AJAX request to fetch the file content
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', filePath, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Display the file content on the HTML page
+                    document.getElementById('fileContent').textContent = xhr.responseText;
+                    document.getElementById('fileContent').style.opacity = 1; // Show the content
+                }
+            };
+            xhr.send();
+            document.getElementById('fileContent').style.opacity = 0; // Hide the content while loading
+        }
+
+        // Event listener for the Fetch Data button
+        document.getElementById('fetchDataBtn').addEventListener('click', fetchFileContent);
+    </script>
+</body>
+</html>
